@@ -1,4 +1,4 @@
-📌 Project Description
+**📌 Project Description**
 
 The E-Commerce Online Shopping System is a full-stack web application developed using React JS, Spring Boot, and MySQL.
 It provides a complete online shopping experience where customers can browse products, add items to cart, place orders, make payments, and track delivery status — all from a single platform.
@@ -6,9 +6,8 @@ It provides a complete online shopping experience where customers can browse pro
 The system follows role-based authentication and supports three different user roles:
 Admin, Customer, and Delivery Person, each having specific responsibilities and access rights.
 
-This project is designed as a Major-Level Full Stack Application and is suitable for Final Year B.Tech / MCA / MSc / PG students for learning and academic submission.
 
-🚀 Technologies Used
+**🚀 Technologies Used**
 
 Frontend: React JS
 
@@ -29,14 +28,14 @@ Administrator (Admin)
 
 Delivery Person
 
-⚙️ Functional Modules
-1️⃣ User Authentication Module
+**⚙️ Functional Modules**
+**1️⃣ User Authentication Module**
 
 Role-based Registration & Login
 
 Secure access for Admin, Customer, and Delivery Person
 
-2️⃣ Product Module
+**2️⃣ Product Module**
 
 Add Product
 
@@ -46,7 +45,7 @@ Delete Product
 
 Search Products
 
-3️⃣ Product Category Module
+**3️⃣ Product Category Module**
 
 Add Category
 
@@ -56,7 +55,7 @@ View Categories
 
 Search Products by Category
 
-4️⃣ Cart Module
+**4️⃣ Cart Module**
 
 Add Products to Cart
 
@@ -68,7 +67,7 @@ View Cart
 
 Calculate Total Cart Amount
 
-5️⃣ Order Module
+**5️⃣ Order Module**
 
 Place Order
 
@@ -78,7 +77,7 @@ View My Orders (Customer)
 
 Search Orders by Order ID
 
-6️⃣ Delivery Module
+**6️⃣ Delivery Module**
 
 Assign Delivery Person (Admin)
 
@@ -88,14 +87,14 @@ Update Delivery Status & Expected Date
 
 Track Order Delivery Status
 
-7️⃣ Payment Module
+**7️⃣ Payment Module**
 
 Dummy Payment Gateway Integration
 
 Order confirmation after successful payment
 
-👤 Role-wise Features
-🛍️ Customer Features
+**👤 Role-wise Features
+🛍️ Customer Features**
 
 View all products on home page
 
@@ -113,7 +112,7 @@ View order history
 
 Track delivery status and delivery person details
 
-🛠️ Admin Features
+**🛠️ Admin Features**
 
 View all customer orders
 
@@ -125,7 +124,7 @@ Add new products
 
 Manage products and categories
 
-🚚 Delivery Person Features
+**🚚 Delivery Person Features**
 
 View assigned delivery orders
 
@@ -133,7 +132,7 @@ Update delivery status (Pending, Delivered, etc.)
 
 Set expected delivery date & time
 
-📊 System Highlights
+**📊 System Highlights**
 
 Role-based access control
 
@@ -147,7 +146,7 @@ Modular and scalable architecture
 
 Industry-level project structure
 
-🎯 Use Case
+**🎯 Use Case**
 
 This project simulates a real-world online shopping platform similar to Amazon or Flipkart (basic version) and helps students understand:
 
@@ -161,6 +160,6 @@ Database relationships
 
 Real-world project workflow
 
-📌 Conclusion
+**📌 Conclusion**
 
 The E-Commerce Online Shopping System is a complete end-to-end solution that demonstrates modern web development practices using Spring Boot and React JS. It is ideal for academic projects, interviews, and practical learning of full stack development.
