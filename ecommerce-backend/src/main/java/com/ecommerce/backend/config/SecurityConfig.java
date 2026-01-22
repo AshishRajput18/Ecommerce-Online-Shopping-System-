@@ -35,14 +35,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/**").permitAll()
                 .requestMatchers(HttpMethod.PUT,"/api/orders/**").permitAll()
                 // Orders endpoints accessible for testing
-                .requestMatchers("/api/orders/**").authenticated()
-                // 🔥 VERY IMPORTANT — ALLOW auth endpoints
-            .requestMatchers("/auth/**").permitAll()
-            .requestMatchers("/api/**").permitAll()
-
-            // Allow preflight requests
-            .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-
+                .requestMatchers("/api/orders/**").permitAll()
                 
                 // Any other request requires authentication
                 .anyRequest().authenticated()
@@ -56,7 +49,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
 
         CorsConfiguration config = new CorsConfiguration();
-         config.setAllowedOriginPatterns(List.of(
+        config.setAllowedOriginPatterns(List.of(
         "http://localhost:5173",
         "https://*.vercel.app"
     ));
