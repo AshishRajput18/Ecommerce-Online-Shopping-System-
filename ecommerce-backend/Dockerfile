@@ -22,7 +22,7 @@ WORKDIR /app
 
 # Copy jar from build stage
 # Replace <your-jar-name> with the actual JAR built by Maven
-COPY --from=build /build/target/backend-banking-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /build/target/ecommerce-backend-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose port (should match your Spring Boot server.port)
 EXPOSE 8081
