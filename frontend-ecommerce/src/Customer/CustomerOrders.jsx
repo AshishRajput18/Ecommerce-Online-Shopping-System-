@@ -26,7 +26,7 @@ const CustomerOrders = () => {
     const fetchOrders = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`http://localhost:8080/api/orders/user/${email}`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/orders/user/${email}`);
         if (!res.ok) throw new Error("Failed to fetch orders");
         const data = await res.json();
         setOrders(Array.isArray(data) ? data : []);

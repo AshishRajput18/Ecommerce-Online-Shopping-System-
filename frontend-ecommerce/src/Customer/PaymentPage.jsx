@@ -20,7 +20,7 @@ const PaymentPage = ({ total, onClose, onPaymentSuccess, userEmail }) => {
       setLoading(true);
       // Call backend to place order
       const res = await fetch(
-        `http://localhost:8080/api/orders/place?email=${userEmail}`,
+        `${import.meta.env.VITE_API_URL}/api/orders/place?email=${userEmail}`,
         { method: "POST" }
       );
 

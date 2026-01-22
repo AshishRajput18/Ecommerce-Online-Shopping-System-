@@ -48,7 +48,7 @@ const MyProfile = () => {
         const token = localStorage.getItem("token");
 
         const res = await fetch(
-          `http://localhost:8080/api/customer/profile/${email}`,
+          `${import.meta.env.VITE_API_URL}/api/customer/profile/${email}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -96,7 +96,7 @@ const MyProfile = () => {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        "http://localhost:8080/api/customer/update-profile",
+        `${import.meta.env.VITE_API_URL}/api/customer/update-profile`,
         {
           method: "PUT",
           headers: {
