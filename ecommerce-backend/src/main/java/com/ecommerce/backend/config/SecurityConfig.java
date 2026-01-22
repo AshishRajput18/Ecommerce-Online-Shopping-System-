@@ -1,5 +1,7 @@
 package com.ecommerce.backend.config;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -8,8 +10,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.util.List;
 
 @Configuration
 public class SecurityConfig {
@@ -36,6 +36,13 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.PUT,"/api/orders/**").permitAll()
                 // Orders endpoints accessible for testing
                 .requestMatchers("/api/orders/**").permitAll()
+                // 🔥 VERY IMPORTANT — ALLOW auth endpoints
+            .requestMatchers("/auth/**").permitAll()
+            .requestMatchers("/api/**").permitAll()
+
+            // Allow preflight requests
+            .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
                 
                 // Any other request requires authentication
                 .anyRequest().authenticated()
@@ -49,7 +56,11 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
 
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:5173")); // React origin
+         config.setAllowedOriginPatterns(List.of(
+        "http://localhost:5173",
+        "https://*.vercel.app"
+    ));
+
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true); // allow cookies/auth headers if needed
