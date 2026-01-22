@@ -1,10 +1,9 @@
 package com.ecommerce.backend.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
+// @AllArgsConstructor
 public class LoginResponse {
     private String token;
 
