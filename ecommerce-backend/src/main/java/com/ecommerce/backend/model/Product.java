@@ -11,7 +11,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
@@ -34,12 +33,9 @@ public class Product {
     private int quantity;
     
     // ✅ IMPORTANT FIX
-    @Lob
-@Column(columnDefinition = "TEXT")
-private String imageUrl;
-
-    // private String imageUrl;
-	
+  
+    @Column(columnDefinition = "LONGTEXT")
+    private String imageUrl;
     
     @ManyToOne
     @JoinColumn(name = "category_id")
