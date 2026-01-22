@@ -25,7 +25,7 @@ const AddProduct = () => {
 
   const fetchCategories = async () => {
     try {
-      const res = await fetch("http://localhost:8080/api/categories");
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/categories`);
       const data = await res.json();
       setCategories(data);
     } catch (err) {
@@ -67,7 +67,7 @@ const AddProduct = () => {
         categoryId: parseInt(formData.categoryId), // <--- important
       };
 
-      const res = await fetch("http://localhost:8080/api/products", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/products`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

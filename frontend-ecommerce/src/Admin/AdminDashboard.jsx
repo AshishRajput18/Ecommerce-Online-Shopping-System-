@@ -19,7 +19,7 @@ const AdminDashboard = ({
     const fetchOrders = async () => {
       try {
         setLoading(true);
-        const res = await fetch("http://localhost:8080/api/orders");
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/orders`);
         if (!res.ok) throw new Error("Failed to fetch orders");
         const data = await res.json();
         setOrders(Array.isArray(data) ? data : []);
@@ -41,7 +41,7 @@ const AdminDashboard = ({
     const fetchDeliveryUsers = async () => {
       try {
         const res = await fetch(
-          "http://localhost:8080/api/users/role/DELIVERY_PERSON"
+          `${import.meta.env.VITE_API_URL}/api/users/role/DELIVERY_PERSON`
         );
         const data = await res.json();
         setDeliveryUsers(Array.isArray(data) ? data : []);
@@ -58,7 +58,7 @@ const AdminDashboard = ({
   const assignDelivery = async (orderId, userId) => {
     if (!userId) return;
     try {
-      await fetch(`http://localhost:8080/api/orders/${orderId}/assign/${userId}`, {
+      await fetch(`${import.meta.env.VITE_API_URL}/api/orders/${orderId}/assign/${userId}`, {
         method: "PUT",
       });
       alert("Delivery person assigned ✅");
@@ -87,7 +87,7 @@ const AdminDashboard = ({
     const fetchCart = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`http://localhost:8080/api/cart/user/${userEmail}`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/cart/user/${userEmail}`);
         if (!res.ok) throw new Error("Failed to load cart");
         const data = await res.json();
         setCartItems(Array.isArray(data) ? data : []);
@@ -116,7 +116,7 @@ const AdminDashboard = ({
   const deleteItem = async (productId) => {
     try {
       await fetch(
-        `http://localhost:8080/api/cart/remove?email=${userEmail}&productId=${productId}`,
+        `${import.meta.env.VITE_API_URL}/api/cart/remove?email=${userEmail}&productId=${productId}`,
         { method: "DELETE" }
       );
       setCartItems((prev) =>

@@ -23,7 +23,7 @@ const DeliveryDashboard = () => {
       return;
     }
 
-    fetch(`http://localhost:8080/api/orders/delivery/${email}`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/orders/delivery/${email}`)
       .then((res) => res.json())
       .then((data) => setOrders(Array.isArray(data) ? data : []))
       .catch(() => setOrders([]))
@@ -34,7 +34,7 @@ const DeliveryDashboard = () => {
   const updateStatus = async (orderId, status) => {
     try {
       const res = await fetch(
-        `http://localhost:8080/api/orders/${orderId}/delivery-status`,
+        `${import.meta.env.VITE_API_URL}/api/orders/${orderId}/delivery-status`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

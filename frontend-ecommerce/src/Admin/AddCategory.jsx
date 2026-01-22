@@ -33,7 +33,7 @@ const AddCategory = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:8080/api/categories", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/categories`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

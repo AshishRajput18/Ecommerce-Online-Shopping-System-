@@ -5,7 +5,7 @@ const CategorySideBar = ({ onSelect }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/categories")
+    fetch(`${import.meta.env.VITE_API_URL}/api/categories`)
       .then(res => res.json())
       .then(data => {
         setCategories(data);

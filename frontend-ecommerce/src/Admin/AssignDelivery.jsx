@@ -10,7 +10,7 @@ const AssignDelivery = () => {
 
   /* ================= LOAD DELIVERY PERSONS ================= */
   useEffect(() => {
-    fetch("http://localhost:8080/api/delivery-persons")
+    fetch(`${import.meta.env.VITE_API_URL}/api/delivery-persons`)
       .then((res) => res.json())
       .then((data) => setDeliveryPersons(data)) // data should be array of objects
       .catch(() => console.error("Failed to load delivery persons"));
@@ -28,7 +28,7 @@ const AssignDelivery = () => {
     }
 
     try {
-      const res = await fetch(`http://localhost:8080/api/orders/${orderId}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/orders/${orderId}`);
       if (!res.ok) throw new Error();
       const data = await res.json();
       setOrder(data);
@@ -46,7 +46,7 @@ const AssignDelivery = () => {
 
     try {
       const res = await fetch(
-        `http://localhost:8080/api/orders/${order.id}/assign-delivery/${deliveryPersonEmail}`,
+        `${import.meta.env.VITE_API_URL}/api/orders/${order.id}/assign-delivery/${deliveryPersonEmail}`,
         { method: "PUT" }
       );
 

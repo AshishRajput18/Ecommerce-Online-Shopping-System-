@@ -27,7 +27,7 @@ const DeliveryUpdateStatus = () => {
 
     try {
       setLoading(true);
-      const res = await fetch(`http://localhost:8080/api/orders/${orderId}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/orders/${orderId}`);
 
       if (!res.ok) throw new Error("Order not found");
 
@@ -64,7 +64,7 @@ const DeliveryUpdateStatus = () => {
       setLoading(true);
 
       const res = await fetch(
-        `http://localhost:8080/api/orders/${orderId}/delivery-status?email=${deliveryEmail}`,
+        `${import.meta.env.VITE_API_URL}/api/orders/${orderId}/delivery-status?email=${deliveryEmail}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

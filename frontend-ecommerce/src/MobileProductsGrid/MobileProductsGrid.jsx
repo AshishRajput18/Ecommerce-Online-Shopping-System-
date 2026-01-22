@@ -16,7 +16,7 @@ const MobileProductsGrid = ({ categoryId }) => {
 
       try {
         const res = await fetch(
-          `http://localhost:8080/api/products/category/${categoryId}`
+          `${import.meta.env.VITE_API_URL}/api/products/category/${categoryId}`
         );
 
         if (!res.ok) throw new Error("Failed to fetch products");
@@ -78,7 +78,7 @@ const MobileProductsGrid = ({ categoryId }) => {
 
     try {
       const res = await fetch(
-        `http://localhost:8080/api/cart/add?email=${email}&productId=${product.id}&quantity=${quantity}`,
+        `${import.meta.env.VITE_API_URL}/api/cart/add?email=${email}&productId=${product.id}&quantity=${quantity}`,
         {
           method: "POST",
           headers: {
