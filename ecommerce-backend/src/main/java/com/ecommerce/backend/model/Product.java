@@ -35,8 +35,11 @@ public class Product {
     
     // ✅ IMPORTANT FIX
     @Lob
-    @Column(columnDefinition = "LONGTEXT")
-    private String imageUrl;
+@Column(columnDefinition = "TEXT")
+private String imageUrl;
+
+    // private String imageUrl;
+	
     
     @ManyToOne
     @JoinColumn(name = "category_id")
