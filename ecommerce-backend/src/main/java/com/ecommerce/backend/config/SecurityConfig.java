@@ -18,62 +18,54 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            // 🔥 VERY IMPORTANT
-            .csrf(csrf -> csrf.disable())
+            // Enable CORS and CSRF disabled for testing PUT/POST from React
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+            .csrf(csrf -> csrf.disable())
 
-            // 🔥 Disable default login & basic auth
-            .formLogin(form -> form.disable())
-            .httpBasic(basic -> basic.disable())
-
+            // Authorize requests
             .authorizeHttpRequests(auth -> auth
-
-                // ✅ Allow preflight requests
-                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-
-                // ✅ AUTH endpoints (VERY IMPORTANT)
-                .requestMatchers("/auth/**").permitAll()
+                // Public endpoints
                 .requestMatchers("/api/auth/**").permitAll()
-
-                // ✅ Public APIs
-                .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/products/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/categories/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/categories/**").permitAll()
-
+                .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/products/**").permitAll()
                 .requestMatchers("/api/customer/**").permitAll()
                 .requestMatchers("/api/cart/**").permitAll()
-                .requestMatchers("/api/orders/**").permitAll()
-
-                // ✅ TEMP: allow all APIs (remove later when JWT added)
                 .requestMatchers("/api/**").permitAll()
+                .requestMatchers(HttpMethod.PUT,"/api/orders/**").permitAll()
+                // Orders endpoints accessible for testing
+                .requestMatchers("/api/orders/**").permitAll()
+                // 🔥 VERY IMPORTANT — ALLOW auth endpoints
+            .requestMatchers("/auth/**").permitAll()
+            .requestMatchers("/api/**").permitAll()
 
-                // ❌ Everything else secured
+            // Allow preflight requests
+            .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                
+                // Any other request requires authentication
                 .anyRequest().authenticated()
             );
 
         return http.build();
     }
 
+    // CORS configuration for React frontend
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
 
         CorsConfiguration config = new CorsConfiguration();
+         config.setAllowedOriginPatterns(List.of(
+        "http://localhost:5173",
+        "https://*.vercel.app"
+    ));
 
-        config.setAllowedOriginPatterns(List.of(
-            "http://localhost:5173",
-            "https://*.vercel.app"
-        ));
-
-        config.setAllowedMethods(List.of(
-            "GET", "POST", "PUT", "DELETE", "OPTIONS"
-        ));
-
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
-        config.setAllowCredentials(true);
+        config.setAllowCredentials(true); // allow cookies/auth headers if needed
 
-        UrlBasedCorsConfigurationSource source =
-                new UrlBasedCorsConfigurationSource();
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
 
         return source;
