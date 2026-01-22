@@ -35,7 +35,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/**").permitAll()
                 .requestMatchers(HttpMethod.PUT,"/api/orders/**").permitAll()
                 // Orders endpoints accessible for testing
-                .requestMatchers("/api/orders/**").permitAll()
+                .requestMatchers("/api/orders/**").authenticated()
                 // 🔥 VERY IMPORTANT — ALLOW auth endpoints
             .requestMatchers("/auth/**").permitAll()
             .requestMatchers("/api/**").permitAll()
