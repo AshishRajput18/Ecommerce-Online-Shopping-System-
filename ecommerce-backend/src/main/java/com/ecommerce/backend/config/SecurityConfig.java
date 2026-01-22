@@ -60,7 +60,6 @@ public class SecurityConfig {
         "http://localhost:5173",
         "https://*.vercel.app"
     ));
-
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true); // allow cookies/auth headers if needed
