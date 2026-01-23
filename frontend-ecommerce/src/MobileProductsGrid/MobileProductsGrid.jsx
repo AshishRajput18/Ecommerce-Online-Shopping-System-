@@ -37,16 +37,14 @@ const MobileProductsGrid = ({ categoryId }) => {
   /* ================= ADD TO CART ================= */
   const handleAddToCart = async (product) => {
     const email = localStorage.getItem("email");
-    const role = localStorage.getItem("userRole"); // ✅ CORRECT KEY
+    const role = localStorage.getItem("userRole");
     const token = localStorage.getItem("token");
 
-    // 🔐 NOT LOGGED IN
     if (!email || !role || !token) {
       Swal.fire("Login Required", "Please login to continue", "warning");
       return;
     }
 
-    // 🔐 LOGGED IN BUT NOT CUSTOMER
     if (role !== "CUSTOMER") {
       Swal.fire(
         "Access Denied",
@@ -56,7 +54,6 @@ const MobileProductsGrid = ({ categoryId }) => {
       return;
     }
 
-    // ✅ CUSTOMER FLOW
     const { value: qty } = await Swal.fire({
       title: `Quantity for ${product.title}`,
       input: "number",
@@ -82,7 +79,7 @@ const MobileProductsGrid = ({ categoryId }) => {
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${token}`, // ✅ JWT ADDED
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -91,7 +88,6 @@ const MobileProductsGrid = ({ categoryId }) => {
 
       Swal.fire("Success", "Product added to cart", "success");
 
-      // ✅ Update stock locally
       setProducts((prev) =>
         prev.map((p) =>
           p.id === product.id
@@ -107,65 +103,68 @@ const MobileProductsGrid = ({ categoryId }) => {
 
   /* ================= UI STATES ================= */
   if (loading) {
-    return <p className="text-center mt-10">Loading products...</p>;
+    return <p className="text-center mt-6">Loading products...</p>;
   }
 
   if (error) {
-    return <p className="text-center mt-10 text-red-600">{error}</p>;
+    return <p className="text-center mt-6 text-red-600">{error}</p>;
   }
 
   if (!products.length) {
-    return <p className="text-center mt-10">No products found.</p>;
+    return <p className="text-center mt-6">No products found.</p>;
   }
 
   /* ================= UI ================= */
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      {products.map((p) => (
-        <div
-          key={p.id}
-          className="bg-white rounded-3xl shadow-lg border-2 border-green-500 p-5 flex flex-col"
-        >
-          <img
-            src={p.imageUrl}
-            alt={p.title}
-            className="h-48 w-full object-contain rounded-2xl mb-4"
-          />
+    <div className="px-3 sm:px-4 md:px-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
+        {products.map((p) => (
+          <div
+            key={p.id}
+            className="bg-white rounded-2xl shadow-md border border-green-500 p-4 flex flex-col h-full"
+          >
+            <img
+              src={p.imageUrl}
+              alt={p.title}
+              className="h-36 sm:h-40 md:h-44 w-full object-contain rounded-xl mb-3"
+            />
 
-          <h3 className="font-semibold text-lg mb-1">{p.title}</h3>
+            <h3 className="font-semibold text-sm sm:text-base mb-1 line-clamp-1">
+              {p.title}
+            </h3>
 
-          <span className="text-sm text-gray-500 mb-2">
-            {p.category?.name || ""}
-          </span>
+            <span className="text-xs text-gray-500 mb-1">
+              {p.category?.name || ""}
+            </span>
 
-          <p className="text-sm text-gray-600 line-clamp-2 mb-3">
-            {p.description}
-          </p>
+            <p className="text-xs sm:text-sm text-gray-600 line-clamp-2 mb-2">
+              {p.description}
+            </p>
 
-          <p className="font-bold text-green-600 text-lg mb-4">
-            ₹{p.price}
-          </p>
+            <p className="font-bold text-green-600 text-base sm:text-lg mb-3">
+              ₹{p.price}
+            </p>
 
-          <div className="flex justify-between items-center mt-auto">
-            {/* 🔥 ALWAYS SHOW BUTTON */}
-            <button
-              disabled={p.quantity === 0}
-              onClick={() => handleAddToCart(p)}
-              className={`py-2 px-4 rounded-xl font-semibold transition ${
-                p.quantity === 0
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-green-600 hover:bg-green-700 text-white"
-              }`}
-            >
-              {p.quantity === 0 ? "Out of Stock" : "Add to Cart"}
-            </button>
+            <div className="flex items-center justify-between gap-2 mt-auto">
+              <button
+                disabled={p.quantity === 0}
+                onClick={() => handleAddToCart(p)}
+                className={`text-xs sm:text-sm py-2 px-3 rounded-lg font-semibold w-full transition ${
+                  p.quantity === 0
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-green-600 hover:bg-green-700 text-white"
+                }`}
+              >
+                {p.quantity === 0 ? "Out of Stock" : "Add to Cart"}
+              </button>
+            </div>
 
-            <span className="text-sm text-gray-700">
+            <span className="text-xs text-gray-600 mt-2 text-right">
               Stock: {p.quantity}
             </span>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };
