@@ -6,10 +6,11 @@ const ProductsPage = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
 
   return (
-    <div className="w-full mt-6 px-4">
-      <div className="flex gap-6">
+    <div className="w-full mt-4 px-3 sm:px-4 md:px-6">
+      <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
+        
         {/* CATEGORY SIDEBAR */}
-        <div className="w-80">
+        <div className="w-full lg:w-80">
           <CategorySideBar onSelect={setSelectedCategoryId} />
         </div>
 
@@ -18,11 +19,12 @@ const ProductsPage = () => {
           {selectedCategoryId ? (
             <MobileProductsGrid categoryId={selectedCategoryId} />
           ) : (
-            <p className="text-gray-500 text-center mt-10 text-lg">
+            <p className="text-gray-500 text-center mt-6 text-base sm:text-lg">
               Select a category to view products
             </p>
           )}
         </div>
+
       </div>
     </div>
   );
