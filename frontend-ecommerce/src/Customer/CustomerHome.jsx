@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import CustomerHeader from "./CustomerHeader";
 import HeroSection from "../HeroSection/HeroSection";
 import CategorySideBar from "../CategorySideBar/CategorySideBar";
@@ -7,18 +7,26 @@ import Footer from "../Footer/Footer";
 
 const CustomerHome = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+
   return (
     <>
       <CustomerHeader />
 
       <HeroSection />
 
-      <div className="w-full mt-6 px-4">
-        <div className="flex gap-6">
-         <CategorySideBar onSelect={setSelectedCategoryId} />
+      <div className="w-full mt-4 px-3 sm:px-4 md:px-6">
+        <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
+          
+          {/* CATEGORY SIDEBAR */}
+          <div className="w-full lg:w-80">
+            <CategorySideBar onSelect={setSelectedCategoryId} />
+          </div>
+
+          {/* PRODUCTS GRID */}
           <div className="flex-1">
             <MobileProductsGrid categoryId={selectedCategoryId} />
           </div>
+
         </div>
       </div>
 

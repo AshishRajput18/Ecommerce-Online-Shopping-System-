@@ -6,18 +6,18 @@ const HeroSection = () => {
     <section
       className="
         w-full
-        h-[180px]
-        sm:h-[220px]
-        md:h-[300px]
-        lg:h-[400px]
-        xl:h-[450px]
+        h-[140px]
+        sm:h-[180px]
+        md:h-[260px]
+        lg:h-[360px]
+        xl:h-[420px]
         overflow-hidden
       "
     >
       <img
         src={BannerImage}
         alt="Online Shopping Banner"
-        className="w-full h-full object-cover"
+        className="w-full h-full object-cover object-center"
       />
     </section>
   );

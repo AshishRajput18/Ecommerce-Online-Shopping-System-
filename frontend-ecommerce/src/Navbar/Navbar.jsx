@@ -12,7 +12,6 @@ const Navbar = () => {
   const [userName, setUserName] = useState(null);
   const [userRole, setUserRole] = useState(null);
 
-  // 🔄 Load user info
   useEffect(() => {
     setUserName(localStorage.getItem("userName"));
     setUserRole(localStorage.getItem("userRole"));
@@ -53,45 +52,70 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white text-green-600 px-6 py-3 shadow flex items-center justify-between">
-      
-      {/* LEFT */}
-      <div className="flex items-center space-x-6">
-        <Link to={getRoleHome()} className="font-bold text-green-800">
-          🛒 Online Shopping
-        </Link>
+    <nav className="bg-white text-green-600 shadow px-3 sm:px-6 py-3">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
 
-        <Link to="/about" className="hover:text-green-800">About Us</Link>
-        <Link to="/contact" className="hover:text-green-800">Contact Us</Link>
-      </div>
-
-      {/* CENTER */}
-      {userName && (
-        <div className="font-semibold text-green-800">
-          Welcome, {userName} 👋
-        </div>
-      )}
-
-      {/* RIGHT */}
-      <div className="flex space-x-4">
-        {!userName ? (
-          <>
-            <button onClick={() => setIsRegisterOpen(true)}>Register</button>
-            <button onClick={() => setIsLoginOpen(true)}>Login</button>
-          </>
-        ) : (
-          <button
-            onClick={handleLogout}
-            className="hover:text-red-600 font-semibold"
+        {/* TOP / LEFT */}
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
+          <Link
+            to={getRoleHome()}
+            className="font-bold text-green-800 text-lg"
           >
-            Logout
-          </button>
+            🛒 Online Shopping
+          </Link>
+
+          <div className="flex gap-4 text-sm sm:text-base">
+            <Link to="/about" className="hover:text-green-800">
+              About Us
+            </Link>
+            <Link to="/contact" className="hover:text-green-800">
+              Contact Us
+            </Link>
+          </div>
+        </div>
+
+        {/* CENTER */}
+        {userName && (
+          <div className="font-semibold text-green-800 text-sm sm:text-base text-center">
+            Welcome, {userName} 👋
+          </div>
         )}
+
+        {/* RIGHT */}
+        <div className="flex gap-3 justify-center sm:justify-end">
+          {!userName ? (
+            <>
+              <button
+                onClick={() => setIsRegisterOpen(true)}
+                className="text-sm sm:text-base hover:text-green-800"
+              >
+                Register
+              </button>
+              <button
+                onClick={() => setIsLoginOpen(true)}
+                className="text-sm sm:text-base hover:text-green-800"
+              >
+                Login
+              </button>
+            </>
+          ) : (
+            <button
+              onClick={handleLogout}
+              className="text-sm sm:text-base hover:text-red-600 font-semibold"
+            >
+              Logout
+            </button>
+          )}
+        </div>
+
       </div>
 
       {/* MODALS */}
       <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
-      <RegisterModal isOpen={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
+      <RegisterModal
+        isOpen={isRegisterOpen}
+        onClose={() => setIsRegisterOpen(false)}
+      />
     </nav>
   );
 };
