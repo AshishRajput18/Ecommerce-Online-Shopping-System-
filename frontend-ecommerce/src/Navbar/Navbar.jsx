@@ -11,6 +11,7 @@ const Navbar = () => {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [userName, setUserName] = useState(null);
   const [userRole, setUserRole] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     setUserName(localStorage.getItem("userName"));
@@ -31,6 +32,7 @@ const Navbar = () => {
         localStorage.clear();
         setUserName(null);
         setUserRole(null);
+        setIsMobileMenuOpen(false);
 
         Swal.fire({
           icon: "success",
@@ -53,10 +55,10 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white text-green-600 shadow px-3 sm:px-6 py-3">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-
-        {/* TOP / LEFT */}
-        <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
+      {/* TOP BAR */}
+      <div className="flex items-center justify-between">
+        {/* LEFT */}
+        <div className="flex items-center gap-4">
           <Link
             to={getRoleHome()}
             className="font-bold text-green-800 text-lg"
@@ -64,7 +66,8 @@ const Navbar = () => {
             🛒 Online Shopping
           </Link>
 
-          <div className="flex gap-4 text-sm sm:text-base">
+          {/* DESKTOP LINKS */}
+          <div className="hidden sm:flex gap-4 text-sm sm:text-base">
             <Link to="/about" className="hover:text-green-800">
               About Us
             </Link>
@@ -74,26 +77,25 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* CENTER */}
-        {userName && (
-          <div className="font-semibold text-green-800 text-sm sm:text-base text-center">
-            Welcome, {userName} 👋
-          </div>
-        )}
+        {/* DESKTOP RIGHT */}
+        <div className="hidden sm:flex gap-3 items-center">
+          {userName && (
+            <span className="font-semibold text-green-800">
+              Welcome, {userName} 👋
+            </span>
+          )}
 
-        {/* RIGHT */}
-        <div className="flex gap-3 justify-center sm:justify-end">
           {!userName ? (
             <>
               <button
                 onClick={() => setIsRegisterOpen(true)}
-                className="text-sm sm:text-base hover:text-green-800"
+                className="hover:text-green-800"
               >
                 Register
               </button>
               <button
                 onClick={() => setIsLoginOpen(true)}
-                className="text-sm sm:text-base hover:text-green-800"
+                className="hover:text-green-800"
               >
                 Login
               </button>
@@ -101,14 +103,78 @@ const Navbar = () => {
           ) : (
             <button
               onClick={handleLogout}
-              className="text-sm sm:text-base hover:text-red-600 font-semibold"
+              className="hover:text-red-600 font-semibold"
             >
               Logout
             </button>
           )}
         </div>
 
+        {/* HAMBURGER */}
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="sm:hidden text-2xl"
+        >
+          ☰
+        </button>
       </div>
+
+      {/* MOBILE MENU */}
+      {isMobileMenuOpen && (
+        <div className="sm:hidden mt-4 flex flex-col gap-3 border-t pt-3 text-sm">
+          <Link
+            to="/about"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="hover:text-green-800"
+          >
+            About Us
+          </Link>
+
+          <Link
+            to="/contact"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="hover:text-green-800"
+          >
+            Contact Us
+          </Link>
+
+          {userName && (
+            <span className="font-semibold text-green-800">
+              Welcome, {userName} 👋
+            </span>
+          )}
+
+          {!userName ? (
+            <>
+              <button
+                onClick={() => {
+                  setIsRegisterOpen(true);
+                  setIsMobileMenuOpen(false);
+                }}
+                className="text-left hover:text-green-800"
+              >
+                Register
+              </button>
+              <button
+                onClick={() => {
+                  setIsLoginOpen(true);
+                  setIsMobileMenuOpen(false);
+                }}
+                className="text-left hover:text-green-800"
+              >
+                Login
+              </button>
+            </>
+          ) : (
+            <button
+              onClick={handleLogout}
+              className="text-left hover:text-red-600 font-semibold"
+            >
+              Logout
+            </button>
+          )}
+        </div>
+      )}
 
       {/* MODALS */}
       <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
